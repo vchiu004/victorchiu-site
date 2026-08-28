@@ -1,0 +1,1192 @@
+/* =========================================================
+   victorchiu.com
+   Edit colours and type in the :root block below.
+   Everything else inherits from it.
+   ========================================================= */
+
+:root {
+  --paper:  #EDEDE8;   /* background — cool concrete white */
+  --ink:    #111110;   /* text, rules */
+  --accent: #0026FF;   /* ultramarine — used sparingly */
+  --muted:  #74736D;   /* metadata, captions */
+
+  --rule-heavy: 2px solid var(--ink);
+  --rule-hair:  1px solid var(--ink);
+
+  --display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+  --body:    "Newsreader", Georgia, serif;
+  --mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --max:    1440px;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+/* clip, not hidden — hidden would break position:sticky */
+body { overflow-x: clip; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.55;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--ink); text-decoration: none; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- layout shell ---------- */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.band { border-top: var(--rule-heavy); }
+.band > .wrap { padding-bottom: clamp(3rem, 8vw, 5rem); }
+.band:last-of-type { border-bottom: var(--rule-heavy); }
+
+/* A label that rides directly under a rule. Signature device. */
+.band-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-block: 0.65rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  border-bottom: var(--rule-heavy);
+  padding-block: 0.9rem;
+}
+
+.masthead .wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.masthead-name {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav a { color: var(--muted); }
+.nav a:hover,
+.nav a[aria-current="page"] { color: var(--ink); }
+.nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- oversized name lockup ---------- */
+/* Deliberately wider than the viewport and clipped at the right edge. */
+.lockup {
+  overflow: visible;
+  padding-top: clamp(2rem, 6vw, 5rem);
+  padding-bottom: clamp(1rem, 2vw, 2rem);
+}
+
+/* The name no longer overflows and clips — it fits, and moves instead.
+   Letters are flex items so each can be transformed independently. */
+.springname {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(3.25rem, 13.5vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  user-select: none;
+  cursor: default;
+}
+
+.springname .ch {
+  display: inline-block;
+  transform-origin: 50% 62%;
+  will-change: transform;
+}
+
+.springname .sp { width: 0.3em; flex: 0 0 auto; }
+
+/* struck letters settle back on their own; no transition here or the
+   springs would fight the CSS easing */
+@media (prefers-reduced-motion: reduce) {
+  .springname .ch { transform: none !important; }
+}
+
+.standfirst {
+  max-width: 34ch;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
+  line-height: 1.35;
+  margin: clamp(1.5rem, 4vw, 3rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+  text-wrap: balance;
+}
+
+.standfirst em { font-style: italic; color: var(--muted); }
+
+/* ---------- index rows ---------- */
+.index { border-top: var(--rule-hair); }
+
+.index-row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 9rem;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding-block: clamp(1.1rem, 2.5vw, 1.9rem);
+  padding-inline: 0.5rem;
+  border-bottom: var(--rule-hair);
+  margin-inline: -0.5rem;
+  transition: background-color 90ms linear, color 90ms linear;
+}
+
+.index-row:hover,
+.index-row:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* On hover the row opens onto the project itself: its photograph,
+   held down under a dark scrim so the text stays in charge. Rows
+   without a --row-img fall back to the plain inversion. */
+.index-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.index-row > * { position: relative; z-index: 1; }
+
+.index-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(17, 17, 16, 0.62), rgba(17, 17, 16, 0.62)),
+    var(--row-img, none);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.85);
+  opacity: 0;
+  transition: opacity 180ms linear;
+}
+
+.index-row:hover::before,
+.index-row:focus-visible::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .index-row::before { transition: none; }
+}
+
+.index-row:hover .index-meta,
+.index-row:hover .index-year { color: var(--paper); }
+
+.index-year,
+.index-meta {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.index-meta { text-align: right; }
+
+.index-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1rem + 2.2vw, 2.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.index-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0.4rem 0 0;
+  max-width: 52ch;
+}
+
+.index-row:hover .index-sub { color: var(--paper); }
+
+/* ---------- writing list ---------- */
+.entry {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-block: 1.4rem;
+  border-bottom: var(--rule-hair);
+}
+
+.entries { border-top: var(--rule-hair); }
+
+/* the whole row is the link — give it a target that covers the entry */
+.entries > a { display: block; }
+.entries > a:hover .entry-title { color: var(--accent); }
+
+.entry-date {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding-top: 0.35rem;
+}
+
+.entry-title {
+  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.6rem);
+  line-height: 1.25;
+  margin: 0;
+  font-weight: 500;
+}
+
+.entry a:hover .entry-title { color: var(--accent); }
+
+.entry-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.35rem 0 0;
+  max-width: 60ch;
+}
+
+/* ---------- article / project pages ---------- */
+.article-head { padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(1.5rem, 4vw, 3rem); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.25rem;
+}
+
+.article-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.5rem + 5.5vw, 6.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 16ch;
+}
+
+/* metadata table — mono, hard-ruled */
+.facts {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.facts th,
+.facts td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 1rem 0.75rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.facts th {
+  width: 10rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* readable measure for long-form text */
+.prose { max-width: 62ch; padding-bottom: clamp(3rem, 8vw, 6rem); }
+
+.prose > * + * { margin-top: 1.2em; }
+
+.prose h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-top: 2.6em;
+  padding-top: 1.2rem;
+  border-top: var(--rule-heavy);
+}
+
+.prose h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 2em;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose q { font-style: italic; }
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.prose ul, .prose ol { padding-left: 1.25rem; }
+.prose li + li { margin-top: 0.5em; }
+
+/* Max/MSP object names, function calls, anything literal */
+.prose code, .chain code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: rgba(0, 38, 255, 0.08);
+  padding: 0.1em 0.35em;
+  white-space: nowrap;
+}
+
+/* full-bleed figures sit outside the prose measure */
+.figure { margin: clamp(2.5rem, 6vw, 4.5rem) 0; }
+
+/* Photographs carry no frame. Scale, offset and the caption do the
+   work the border used to do badly. */
+.figure img { background: rgba(17, 17, 16, 0.04); }
+
+/* Placeholder box — delete once real images are in. */
+.figure-placeholder {
+  border: 2px dashed var(--muted);
+  aspect-ratio: 3 / 2;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 12px,
+    rgba(17,17,16,0.05) 12px, rgba(17,17,16,0.05) 24px
+  );
+}
+
+.figure figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-top: 0.9rem;
+  max-width: 44ch;
+}
+
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1.5rem;
+}
+
+/* ---------- next / prev ---------- */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-block: 2rem;
+  border-top: var(--rule-heavy);
+}
+
+.pager a:hover { color: var(--accent); }
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: var(--rule-heavy);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer a { color: var(--ink); }
+.footer a:hover { color: var(--accent); }
+
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+/* ---------- signal chain ----------
+   For genuinely sequential content only (a signal path, a process).
+   The numbers here mean something — don't reuse this for a plain list. */
+.chain {
+  counter-reset: stage;
+  list-style: none;
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  border-top: var(--rule-heavy);
+}
+
+.chain li {
+  counter-increment: stage;
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-block: 1.2rem;
+  border-bottom: var(--rule-hair);
+  max-width: 66ch;
+}
+
+.chain li::before {
+  content: counter(stage, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  padding-top: 0.3rem;
+}
+
+.chain-stage { font-size: 1rem; line-height: 1.5; }
+
+.chain-stage strong { font-weight: 600; }
+
+/* the loop closing back on itself */
+.chain-close {
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+  gap: 1.25rem;
+  max-width: 66ch;
+  border-bottom: var(--rule-heavy);
+  padding-block: 1rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.chain-close::before { content: "\21BA"; font-size: 1rem; line-height: 1; }
+
+/* ---------- materials line ---------- */
+.materials {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.materials span::after { content: " / "; color: var(--ink); }
+.materials span:last-child::after { content: ""; }
+
+/* ---------- spec comparison ----------
+   For real before/after engineering tradeoffs. Neither column is
+   styled as the "winner" — a tradeoff means something was lost. */
+.spec-scroll { overflow-x: auto; margin-block: clamp(2rem, 5vw, 3.5rem); }
+
+.spec {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.spec th, .spec td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.8rem 1.25rem 0.8rem 0;
+  border-bottom: var(--rule-hair);
+}
+
+.spec thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--accent);
+  border-top: var(--rule-heavy);
+  border-bottom: var(--rule-heavy);
+}
+
+.spec tbody th {
+  font-weight: 400;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 11rem;
+}
+
+.spec tbody tr:last-child th,
+.spec tbody tr:last-child td { border-bottom: var(--rule-heavy); }
+
+/* ---------- design decision ----------
+   For a choice worth defending, not a general aside. */
+.decision {
+  border: var(--rule-heavy);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  max-width: 62ch;
+  margin-block: clamp(2rem, 5vw, 3rem);
+}
+
+.decision-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.85rem;
+}
+
+.decision p { margin: 0; }
+.decision p + p { margin-top: 1em; }
+
+/* ---------- diptych ----------
+   For work that is genuinely two things set against each other.
+   The dividing rule is the point — don't use this for a plain two-up. */
+.diptych {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--rule-heavy);
+  border-bottom: var(--rule-heavy);
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.diptych > * {
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 2rem)
+           clamp(1.5rem, 3vw, 2.25rem) 0;
+}
+
+.diptych > * + * {
+  border-left: var(--rule-heavy);
+  padding-left: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.diptych-part {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.9rem;
+}
+
+.diptych-name {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 0.9rem + 1.3vw, 1.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+}
+
+.diptych-line { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+/* ---------- in progress ----------
+   Dashed rule reads as unfinished on purpose. Delete the block
+   once the section is written. */
+.pending {
+  border: 2px dashed var(--muted);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  max-width: 62ch;
+  margin-block: clamp(2rem, 5vw, 3rem);
+}
+
+.pending .decision-label { color: var(--muted); }
+
+/* ---------- split ----------
+   Body text with images running alongside it. Collapses to a
+   single column on narrow screens, images below the text. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.split .prose { padding-bottom: 0; }
+.split .prose > *:first-child { margin-top: 0; }
+
+.split-aside { display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
+.split-aside .figure { margin: 0; }
+
+/* =========================================================
+   IMAGE LAYOUT
+   Figures deliberately break their container. If something
+   looks misaligned, it probably is — on purpose.
+   ========================================================= */
+
+/* ---------- aspect ratios for placeholders ---------- */
+.ar-portrait .figure-placeholder { aspect-ratio: 4 / 5; }
+.ar-square   .figure-placeholder { aspect-ratio: 1 / 1; }
+.ar-wide     .figure-placeholder { aspect-ratio: 16 / 9; }
+.ar-tall     .figure-placeholder { aspect-ratio: 2 / 3; }
+.ar-pano     .figure-placeholder { aspect-ratio: 5 / 2; }
+
+/* ---------- text / figures split ---------- */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  border-top: var(--rule-heavy);
+  padding-top: clamp(2rem, 5vw, 3.5rem);
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+
+.split-text {
+  max-width: 48ch;
+  padding: 0 0 clamp(2rem, 5vw, 4rem);
+}
+
+/* figures start below the text's first line — nothing baselines */
+.split-figs {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+.split-figs .figure { margin: 0; }
+
+/* Stagger modifiers. The range between them is the point — a set of
+   figures all near the same width reads as a grid, not a rhythm. */
+.fig-full  { width: 100%; }
+
+/* retreats, small and pushed right */
+.fig-right { width: 58%; margin-left: auto; }
+
+/* the middle of the range — larger than fig-right, reaching back a little */
+.fig-mid {
+  width: 92%;
+  margin-left: -8%;
+  position: relative;
+  z-index: 1;
+}
+
+/* screenshots: wide enough that object names stay readable, but not
+   so wide that a tall patch becomes a scroll of its own */
+.fig-plate {
+  width: min(100%, 46rem);
+  margin-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* a portrait standing on its own, held well short of the full measure */
+.fig-inset {
+  width: min(100%, 30rem);
+  margin-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* oversized, reaching back across the gutter into the text column */
+.fig-pull {
+  width: 114%;
+  margin-left: -18%;
+  position: relative;
+  z-index: 1;
+}
+
+/* runs off the right edge of the screen */
+.fig-bleed-right { width: calc(100% + var(--gutter) + 4vw); }
+
+/* stays put while adjacent content scrolls */
+.fig-sticky { position: sticky; top: 2rem; }
+
+/* ---------- full bleed ---------- */
+.bleed {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-block: clamp(3rem, 8vw, 6rem);
+}
+
+.bleed .figure-placeholder,
+.bleed img { border: 0; width: 100%; }
+
+/* full-bleed photos behave as bands, not walls */
+.bleed img {
+  max-height: 78vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ...except where cropping would cut content. A diptych loses its
+   argument the moment either half is trimmed. */
+.bleed.no-crop img {
+  max-height: none;
+  object-fit: contain;
+}
+
+.bleed figcaption {
+  max-width: var(--max);
+  margin: 0.75rem auto 1.25rem;
+  padding-inline: var(--gutter);
+}
+
+/* a figure at full container width — for landscape images that would
+   leave a ragged column if text wrapped around them */
+.fig-measure {
+  width: 100%;
+  margin-block: clamp(2.5rem, 7vw, 4.5rem);
+}
+
+/* ---------- float wrap ---------- */
+.prose .fig-float {
+  float: right;
+  width: min(56%, 27rem);
+  margin: 0.3rem -14% 2rem 2.75rem;
+  shape-margin: 1.5rem;
+}
+
+/* ---------- offset pair ---------- */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  margin-block: clamp(3rem, 8vw, 5.5rem);
+}
+
+.pair > * { margin: 0; }
+
+/* tops align; both figures identical width */
+.pair > *:last-child { margin-top: 0; }
+
+/* ---------- track list ----------
+   Numbers are running order — real information. */
+.tracks { border-top: var(--rule-heavy); margin-block: clamp(2rem, 5vw, 3.5rem); }
+
+.track {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) 5rem;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-block: 1.35rem;
+  border-bottom: var(--rule-hair);
+}
+
+.track:last-of-type { border-bottom: var(--rule-heavy); }
+
+.track-no, .track-time {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.track-time { text-align: right; }
+
+.track-title {
+  font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.4rem);
+  font-weight: 500;
+  margin: 0;
+}
+
+.track-desc {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0.3rem 0 0;
+}
+
+/* Bandcamp embed. The iframe's own chrome can't be styled from here,
+   so it's framed in a heavy rule instead — the border makes it read as
+   a deliberate inset rather than a stray widget. */
+.bc-embed {
+  margin-top: 1rem;
+  max-width: 26rem;
+  border: var(--rule-heavy);
+  background: var(--paper);
+  line-height: 0;
+}
+
+.bc-embed iframe {
+  display: block;
+  width: 100%;
+  height: 120px;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .bc-embed { max-width: none; }
+}
+
+/* track titles that leave the site — the arrow marks the exit */
+.track-link {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.track-link:hover { color: var(--accent); }
+
+.track-out {
+  font-family: var(--mono);
+  font-size: 0.62em;
+  color: var(--muted);
+  transform: translateY(-0.15em);
+  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), color 120ms linear;
+}
+
+.track-link:hover .track-out {
+  color: var(--accent);
+  transform: translate(0.15em, -0.3em);
+}
+
+.bc-cta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  border-bottom: var(--rule-heavy);
+  padding-block: 1.4rem;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bc-cta a { color: var(--accent); }
+.bc-cta a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bc-note { color: var(--muted); letter-spacing: 0.1em; }
+
+.tracks-total {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ---------- diagram ---------- */
+.diagram {
+  border: var(--rule-heavy);
+  padding: clamp(1rem, 3vw, 2rem);
+  margin-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.diagram svg { width: 100%; height: auto; display: block; }
+
+.diagram svg text { font-family: var(--mono); }
+
+.diagram figcaption {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  max-width: 62ch;
+}
+
+/* ---------- references ---------- */
+.refs {
+  border-top: var(--rule-heavy);
+  padding-block: 1.5rem clamp(3rem, 7vw, 5rem);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.9;
+  color: var(--muted);
+  list-style: none;
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  padding-left: 0;
+}
+
+.refs a { color: var(--accent); word-break: break-all; }
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+/* ---------- expanding index row ---------- */
+.row-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.row-more > div { overflow: hidden; }
+
+.index-row.is-open .row-more { grid-template-rows: 1fr; }
+
+.row-more-inner { padding-top: 1.1rem; }
+
+.row-detail {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 58ch;
+  margin: 0;
+}
+
+.index-row:hover .row-detail { color: var(--paper); }
+
+.row-foot {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.row-enter { color: var(--accent); }
+.index-row:hover .row-enter { color: var(--paper); text-decoration: underline; text-underline-offset: 4px; }
+
+.row-playing { color: var(--muted); opacity: 0; transition: opacity 200ms linear; }
+.index-row.is-playing .row-playing { opacity: 1; }
+.index-row:hover .row-playing { color: var(--paper); }
+
+/* touch devices have no hover — keep rows open, no audio on pointer */
+@media (hover: none) {
+  .row-more { grid-template-rows: 1fr; }
+  .row-playing { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row-more { transition: none; }
+}
+
+/* ---------- fixed side rail ----------
+   Stays put while the page scrolls. Doubles as the toggle so sound
+   is reachable from anywhere, not just the top of the page. */
+.rail {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0.95rem 0.55rem;
+  background: var(--paper);
+  border: var(--rule-heavy);
+  border-left: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  transition: background-color 120ms linear, color 120ms linear;
+}
+
+.rail:hover { background: var(--ink); color: var(--paper); }
+
+.rail-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+/* column-reverse so the meter fills from the bottom up */
+.rail-bars {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3px;
+}
+
+.rail-seg {
+  width: 13px;
+  height: 4px;
+  background: var(--ink);
+  opacity: 0.18;
+  transition: opacity 60ms linear, background-color 60ms linear;
+}
+
+.rail:hover .rail-seg { background: var(--paper); }
+
+.rail-seg.on { background: var(--accent); opacity: 1; }
+.rail:hover .rail-seg.on { background: var(--accent); }
+
+.rail[data-state="off"] .rail-label { color: var(--muted); }
+.rail:hover[data-state="off"] .rail-label { color: var(--paper); }
+.rail[data-state="click"] .rail-label { color: var(--accent); }
+
+.rail[data-state="error"] .rail-label { color: var(--accent); }
+.rail[data-state="on"]    .rail-label { color: var(--ink); }
+.rail:hover .rail-label { color: var(--paper); }
+
+/* narrow windows: dock to the bottom-left corner, laid out horizontally,
+   so it can't crowd the text column */
+@media (max-width: 1100px) {
+  .rail {
+    top: auto;
+    bottom: 0;
+    transform: none;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.85rem;
+    border-bottom: 0;
+  }
+  .rail-label { writing-mode: horizontal-tb; }
+  .rail-bars { flex-direction: row; align-items: flex-end; }
+  .rail-seg { width: 4px; height: 13px; }
+}
+
+/* no hover means no hover-audio, so there is nothing to control */
+@media (hover: none) {
+  .rail { display: none; }
+}
+
+/* the pull is generous on wide screens; rein it in before it collides */
+@media (max-width: 1100px) {
+  .fig-pull { width: 106%; margin-left: -8%; }
+  .fig-mid { width: 96%; margin-left: -4%; }
+  .fig-right { width: 70%; }
+  .prose .fig-float { width: min(50%, 22rem); margin-right: -6%; }
+}
+
+/* ---------- the hang ----------
+   Paintings hang in one centred column. Each work's on-screen width
+   tracks its physical size — the 8 ft canvas fills the measure, the
+   tin objects sit small — so scale relationships stay true. */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4.5rem, 11vw, 9rem);
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(4rem, 9vw, 7rem);
+}
+
+.gallery .work { width: var(--w, 68%); margin: 0; }
+.gallery .work img { width: 100%; display: block; }
+
+.gallery .work figcaption {
+  text-align: center;
+  max-width: none;
+  margin-top: 1.15rem;
+}
+
+/* a set shown as one work */
+.work-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .gallery { gap: 3.5rem; }
+  .gallery .work { width: 100%; }
+  .work-row { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 700px) {
+  .index-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .index-meta { text-align: left; }
+  .entry { grid-template-columns: 1fr; gap: 0.35rem; }
+  .entry-date { padding-top: 0; }
+  .facts th { width: auto; display: block; border-bottom: 0; padding-bottom: 0.25rem; }
+  .facts td { display: block; padding-left: 0; }
+  .band-label { flex-direction: column; gap: 0.35rem; }
+  .chain li, .chain-close { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 0.85rem; }
+  .diptych { grid-template-columns: 1fr; }
+  .diptych > * { padding-right: 0; }
+  .diptych > * + * { border-left: 0; border-top: var(--rule-heavy); padding-left: 0; }
+
+  /* breakout layouts stand down on small screens */
+  .split { grid-template-columns: 1fr; }
+  .split-text { padding-right: 0; padding-bottom: 1rem; }
+  .split-figs {
+    padding-top: 1.5rem;
+    padding-bottom: 0;
+    gap: 3rem;
+  }
+  .fig-full, .fig-right, .fig-pull, .fig-mid, .fig-bleed-right, .fig-inset, .fig-plate {
+    width: 100%;
+    margin-left: 0;
+  }
+  .fig-sticky { position: static; }
+  .prose .fig-float { float: none; width: 100%; margin: 1.75rem 0; }
+  .pair { grid-template-columns: 1fr; }
+  .pair > *:last-child { margin-top: 0; }
+  .split { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- print ---------- */
+@media print {
+  .masthead, .nav, .pager, .footer { display: none; }
+  body { background: #fff; }
+}

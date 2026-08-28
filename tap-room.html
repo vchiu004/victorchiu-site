@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tap Room — Victor Chiu</title>
+<meta name="description" content="Motion Detect Synth: a room-scale motion-responsive synthesis system built in Max/MSP/Jitter, where four cameras turn movement through a space into a seven-voice ensemble. RISD Memorial Hall, 2026.">
+
+<meta property="og:title" content="Tap Room — Victor Chiu">
+<meta property="og:description" content="Motion-responsive synthesis system and live performance, 2026.">
+<meta property="og:url" content="https://www.victorchiu.com/tap-room.html">
+<meta property="og:image" content="https://www.victorchiu.com/images/taproom-01.jpg">
+<meta property="og:type" content="article">
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="masthead-name" href="index.html">Victor Chiu</a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Works</a>
+      <a href="paintings.html">Paintings</a>
+      <a href="writing.html">Writing</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap">
+    <div class="article-head">
+      <p class="eyebrow">Iteration / Improvisation / Exercise &mdash; Motion-Responsive Synthesis</p>
+      <h1 class="article-title">Tap Room</h1>
+    </div>
+
+    <table class="facts">
+      <tr><th>Year</th><td>2026</td></tr>
+      <tr><th>System</th><td>Motion Detect Synth &mdash; system and live performance</td></tr>
+      <tr><th>Materials</th><td>USB webcams, laptop, Max/MSP/Jitter, self-assembled modular synthesizer, MIDI controller, audio interface, speakers, subwoofers</td></tr>
+    </table>
+  </div>
+
+<figure class="figure bleed">
+    <img src="images/taproom-01.jpg" alt="A darkened hall washed in deep red light, folding chairs scattered across a wooden floor, a figure standing alone in the middle ground and others gathered at a table by a laptop.">
+      <figcaption>The room during performance &mdash; chairs scattered, not arranged.</figcaption>
+  </figure>
+
+  <div class="wrap">
+    <div class="prose">
+      <h2>Overview</h2>
+      <p>Tap Room in its essence is a room scale motion responsive performance
+        system that I developed through Max MSP Jitter in which the movement of
+        bodies through space becomes data for musical input. Four cameras in
+        total, three webcams mounted on pedestals and a laptop webcam, are
+        mapped to different regions of the space. It continuously feeds human
+        motion based on light into MIDI data that triggers and shapes a seven
+        voice synthesis system in Max. The audience and performers do not play
+        any instrument in the traditional sense. The room becomes the
+        instrument, thus any movement is its notation. This project plays on the
+        idea of trust or rather distrust. The system simply watches. It offers
+        no interface, no instructions, no imagery of what it sees. The space
+        encircles the senses and sound is evidence.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Concept</span>
+      <span></span>
+    </div>
+
+    <div class="split">
+      <div class="split-text prose" style="padding-top:0">
+        <p>Every room that we set foot into already has opinions of its own,
+          about how one should move through it. Fundamental to architecture,
+          doorways call out at us, furniture arranges us, sightlines tell us
+          where to stand and what deserves attention. It is choreographed and
+          rehearsed. This performance enlarges such quiet, beneath the surface
+          conditioning audible. Nothing in the room announces itself as an
+          interface, no image is offered to the visitors. The moment of
+          realization of oneself being observed.</p>
+
+        <p>The system itself is built on a contradiction. Even though its
+          mapping is deterministic, meaning that different zones are mapped to
+          its respective voices, motion intensity to pitch register, fixed
+          thresholds, yet it never truly performs the same way. Same room, same
+          patch, same numbers yield different results each time. It is composed
+          by whoever decides to walk through and the ways in which they walk
+          through the space. It behaves like a graphic score, a complete set of
+          rules that cannot really predict its own realization. Collective
+          motion drives the whole field toward density losing control. The
+          rules must be learned through moving, listening and trial and
+          error.</p>
+
+        <p>It is also under such circumstances where the performance can be
+          honest. It does not celebrate surveillance technology. It takes the
+          logic of surveillance, such as cameras, thresholds, continuous
+          adjustment and measurement and turns it into something that
+          surveillance was never able to offer due to its nature. Having the
+          observed be aware of their observation. The room must confess each
+          observation out loud. Where surveillance controls movement, self
+          regulating under gaze, observation returned as sound creates a
+          different circumstance. It invites people to move, try, and play. A
+          gaze that produces movement rather than suppressing it. Even
+          scattering the chairs plays an act in all of this, obstacles, like a
+          playground, shaping how the bodies drift throughout the space
+          therefore shaping the sound. Everything present within the zone is
+          both input and out and listener, disturbing the very space they are
+          trying to perceive.</p>
+      </div>
+
+      <div class="split-figs">
+<figure class="figure fig-full">
+          <img src="images/taproom-07.jpg" loading="lazy" decoding="async" alt="The Tap Room in its ordinary state: exposed brick, timber trusses, chandeliers, a projection screen, and rows of folding chairs facing front.">
+      <figcaption>The Tap Room as it usually sits &mdash; everything pointed one way.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Technical System</span>
+      <span></span>
+    </div>
+
+    <div class="prose">
+      <h2>Vision and motion analysis</h2>
+      <p>Each camera feed is captured in Max/Jitter at a deliberately low
+        resolution of 80&times;60 pixels at 8 frames per second, enough to
+        detect accurate motion and reduce CPU strain. Each frame is then
+        converted to luminance using <code>jit.rgb2luma</code> and downsampled
+        to a 10&times;10 float32 matrix, rendering the image down to a grid of
+        light and dark brightness values. Motion is isolated through frame
+        differencing with <code>jit.-</code>, subtracting each frame from the
+        previous one so that only any change remains. The difference matrix is
+        then passed through a threshold (<code>jit.&gt;</code>), with
+        sensitivity tuned independently per zone with values ranging from 0.21
+        to 0.3. This number was crucial for determining how much sound was
+        happening in accordance to the movement. Afterwards it was smoothed
+        with a downward slide (<code>jit.slide @slide_down 10</code>) so that
+        energy decays naturally rather than sharp cut off. Each zone&rsquo;s
+        matrix is then scanned and summed into a single continuous motion
+        value, polled every 100ms.</p>
+    </div>
+
+<figure class="figure fig-plate">
+      <img src="images/taproom-02.png" loading="lazy" decoding="async" alt="A Max/MSP patch showing the motion detection chain: jit.grab at 80 by 60 pixels, jit.rgb2luma, frame differencing with jit.minus, a threshold object, jit.slide smoothing, then scale and makenote objects feeding cycle~ and filtered noise.">
+      <figcaption>One zone&#x27;s chain: grab at 80&times;60, luminance, difference, threshold, smooth, scale to MIDI.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Motion to Sound</h2>
+      <p>Each zone&rsquo;s motion value (0-100) is scaled into a MIDI pitch
+        range that is unique to its voice, the lower frequency zone spanning
+        notes 20-48, highest in my patch were 79-88, giving characters to these
+        voices. These values drive seven independent voices with each camera
+        mapping to two voices and one voice to a laptop webcam. The seven
+        voices are as follows &mdash; Sub, SineHum, Bell, Air, Triangle,
+        Percussive voice, and a VST plugin instrument via <code>makenote</code>
+        object with voice specific durations ranging from 800ms to 2200ms. The
+        native Max voices/synth are built from <code>cycle~</code>,
+        <code>tri~</code>, and filtered noise shaped through <code>lores~</code>
+        resonant lowpass filter at specific cutoffs, and <code>line~</code>
+        ramps interpolating parameter changes to avoid zipper noise. Motion in
+        different zones produce different notes with different instruments in
+        different registers like a big ensemble.</p>
+    </div>
+
+<figure class="figure bleed no-crop">
+      <img src="images/taproom-04.png" loading="lazy" decoding="async" alt="A wide Max patch showing seven parallel columns, each a complete camera-to-voice chain, labelled Bell, Sub, Air, sineHum, Triangle, Drum and Serum, with small live camera previews at the top of each.">
+      <figcaption>All seven voices &mdash; each column one camera, one threshold, one pitch range.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Processing and performance control</h2>
+      <p>Seven voices are combined into a multichannel stream
+        (<code>mc.combine~ 7</code>) and mixed to stereo. Two custom DSP
+        processor built in <code>gen~</code> shapes the master output: first
+        being a pitch shifter with a phasor driven sample delay crossfaded
+        through 180 degree out of phase squared cosine window, with precise
+        controls for window size, shift amount, and blur, as well as a Freeverb
+        reverb with control over damping, diffusion and decay parameters.
+        Beneath the motion-driven system, a DIY modular synthesizer provided a
+        quiet ambient drone that comes in and out when the room fell still,
+        such that stillness remains audible. During the performance, I operated
+        a MIDI controller mapped to individual channel gains, master dry/wet
+        and parameters on pitch shift and freeverb, live mixing the
+        &ldquo;ensemble&rdquo; in response to the room. The full output was
+        recorded to disk via <code>sfrecord~</code>.</p>
+    </div>
+
+    <div class="decision">
+      <p><strong>Note:</strong> The system has no visual output. Projections of
+        the camera feeds or motion matrices were considered, however it
+        would&rsquo;ve restored vision as the authoritative sense, the very
+        hierarchy the piece attempts at destabilizing. The only feedback the
+        room offers is sound. The relationship between motion and sonic must be
+        discovered by ear and body alone.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/taproom-03.png" loading="lazy" decoding="async" alt="A Max patch with pitch shift and Freeverb parameter controls on the left, and seven labelled channel faders on the right reading Bell, Sub, Air, SineHum, Triangle, Drum and Serum, above master dry and wet faders.">
+      <figcaption>The performance controls: seven channel gains, master dry and wet, pitch shift, Freeverb.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Iterations and Engineering Trade offs</span>
+      <span></span>
+    </div>
+
+    <div class="prose">
+      <p>An earlier version of the system was inspired by beam-based motion
+        synthesis experiment I had researched where it took a totally different
+        approach. The camera image was divided into twenty vertical beams with
+        each being assigned to a fixed pitch from a hand tuned scale, and the
+        motion matrix was read at audio rate using <code>mc.jit.peek~</code>
+        driven by a scanning <code>phasor~</code>. Therefore, movement through
+        a beam excites its own voice in a 20-channel <code>mc.cycle~</code>
+        oscillator bank. It is analogous to having the room strung like a harp.
+        This version of the system required the camera to capture at a higher
+        resolution (160&times;120 pixels, analyzed and tested on both
+        20&times;20 and 30&times;30 grids) with more sensitive thresholds and
+        audio rate response was beautiful at times. Practically, the CPU had a
+        hard time handling everything. Audio rate peeking into 400 cell
+        matrices across multiple simultaneous camera feeds left me with
+        noticeable latency and hard capped the system to three cameras,
+        sometimes two. Stability became a real issue and the system could not
+        scale to the whole room. The final resolution had to have been an
+        architectural redesign in response. Motion analysis moved from audio
+        rate to control rate, polled every 100ms, capture resolution dropped to
+        80&times;60 on a 10&times;10 grid and continuous excitation was
+        replaced with event based note generation in which the overlapping
+        durations preserve the perception of continuity at a fraction of the
+        computational loss. It is important to note the trade off ultimately
+        sacrificed granular responsiveness for stability and reliability, seven
+        reliable, controllable zones instead of twenty beams that were at most
+        times unpredictable.</p>
+    </div>
+
+<figure class="figure fig-plate">
+      <img src="images/taproom-05.png" loading="lazy" decoding="async" alt="The earlier Max patch: jit.grab at 160 by 120, a jit.matrix named beams holding 400 values, a scanning phasor driving mc.jit.peek~, and a twenty-channel mc.cycle~ oscillator bank fed by three lists of MIDI note numbers.">
+      <figcaption>Version one: 400 beam cells scanned at audio rate into twenty voices.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>Raw frame difference values were extremely noisy, fluctuating with
+        camera grain, lighting shift and the actual quality of each individual
+        camera, which initially caused the synthesis to jump erratically. It is
+        also at this point I recognized the laptop&rsquo;s (Macbook) inability
+        to recognize two of the same webcam with the same model and it had had
+        to be distinct models of webcams. The solution was built in layers from
+        <code>jit.slide</code> putting threshold to reject sub-movement noise,
+        smoothing so that energy decays gradually, and <code>line~</code>
+        interpolation ramps so that parameter changes glide instead of step,
+        eliminating any audible zipper noise. Sensitivity itself also became a
+        key parameter compositionally, with the zone&rsquo;s threshold tuned
+        independently.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/taproom-06.jpg" loading="lazy" decoding="async" alt="Four people in a bright studio watching a projection screen, gathered around a small latex-covered arch on the floor with cables running from it.">
+      <figcaption>An early test &mdash; the version that still had a visual output.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Site and Performance</span>
+      <span></span>
+    </div>
+
+    <div class="prose">
+      <p>The Motion Detect Synth system was performed during the Senior Group
+        Painting Show titled &ldquo;Repeat After Me&rdquo; at the Rhode Island
+        School of Design&rsquo;s Memorial Hall Tap Room and the site is
+        inseparable from the work itself. Tap Room is traditionally one of
+        RISD&rsquo;s sonically active spaces: a room used by student bands
+        whose rehearsal echo down Benefit Street at night. The piece
+        acknowledges that history rather than ignoring it, installing a
+        listening system in a room already culturally marked as a place where
+        sound is made. Bringing the space fully to life required speakers and
+        subwoofers positioned through the room with an interface handling all
+        the routing, so that the synthesis genuinely had a physical presence
+        rather than just a heard one.</p>
+
+      <p>Anyone who came to see the painting show became part of the piece
+        simply by entering the room. There were no performers, nothing was
+        choreographed and minimal instructions were given besides directions up
+        to the Tap Room.</p>
+    </div>
+  </div>
+
+<figure class="figure bleed">
+    <img src="images/taproom-08.jpg" loading="lazy" decoding="async" alt="Visitors moving through the red-lit hall among scattered folding chairs, one seated at the edge, others walking, a performer at a laptop on the far side.">
+      <figcaption>No performers, no choreography &mdash; only directions up to the Tap Room.</figcaption>
+  </figure>
+
+  <div class="wrap">
+    <nav class="pager" aria-label="Project navigation">
+      <a href="capsule.html">&larr; Capsule</a>
+      <a href="two-instruments.html">Two Instruments &rarr;</a>
+    </nav>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Victor Chiu &mdash; victorchiu.com</span>
+    <div class="footer-links">
+      <a href="mailto:vchiu004@gmail.com">Email</a>
+      <a href="https://instagram.com/victor_ch1u" rel="noopener">Instagram</a>
+      <a href="https://ednz.bandcamp.com" rel="noopener">Bandcamp</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

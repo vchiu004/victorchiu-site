@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two Instruments — Victor Chiu</title>
+<meta name="description" content="BOO, a feedback delay network reverb carrying the memory of a sealed railroad tunnel, and a Living Wavetable Oscillator built on a circular scanned-synthesis string. Both DSP designed in Max/MSP gen~ and flashed to Daisy Patch SM hardware.">
+
+<meta property="og:title" content="Two Instruments — Victor Chiu">
+<meta property="og:description" content="Two hardware modules: a tunnel reverb and a scanned synthesis oscillator.">
+<meta property="og:url" content="https://www.victorchiu.com/two-instruments.html">
+<meta property="og:image" content="https://www.victorchiu.com/images/twoinstrument-hover.jpg">
+<meta property="og:type" content="article">
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="masthead-name" href="index.html">Victor Chiu</a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Works</a>
+      <a href="paintings.html">Paintings</a>
+      <a href="writing.html">Writing</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap">
+    <div class="article-head">
+      <p class="eyebrow">Two Instruments / Modules</p>
+      <h1 class="article-title">Two Instruments</h1>
+    </div>
+
+    <div class="diptych">
+      <div>
+        <h2>BOO</h2>
+        <p>Gano Street Tunnel Inspired Reverb Module in Serge Format &mdash; 2025</p>
+      </div>
+      <div>
+        <h2>Living Wavetable Oscillator</h2>
+        <p>Scanned Synthesis &mdash; 2026</p>
+      </div>
+    </div>
+
+    <table class="facts">
+      <tr><th>Hardware</th><td>Electrosmith Daisy Patch SM, custom breakout and panel fabrication, Eurorack power cable</td></tr>
+      <tr><th>Software</th><td>Max/MSP gen~, Daisy embedded firmware</td></tr>
+    </table>
+
+    <div class="prose">
+      <h2>Overview</h2>
+      <p>Two hardware instruments, a reverb that carries the memory of an
+        abandoned railroad tunnel, and an oscillator in which its waveform is
+        governed by physics. The two were built a year apart with a similar
+        pipeline. DSP designed in Max/MSP&rsquo;s gen~ environment, exported
+        and flashed to an Electrosmith Daisy Patch SM inside of hand-built
+        hardware. One for Serge format and one for Eurorack. Both of which
+        replace something stored with something that behaves. A convolution
+        reverb records a space and replays it forever. Identically, BOO module
+        translates the character of a space into an algorithm that never
+        repeats itself. A wavetable oscillator reads through a stored table,
+        repeating one cycle until the table is swapped. The Living Wavetable
+        makes the table itself a physical model. BOO reaches toward a real
+        tunnel it cannot fully capture, while the oscillator&rsquo;s circular
+        string, its last node joined to its first, is a technique that the
+        original authors of scanned synthesis deemed physically impossible. One
+        imitates the real and the other exceeds it. Both play on behaviour.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Part I</span>
+      <span>BOO &mdash; Gano Street Tunnel Inspired Reverb Module in Serge Format, 2025</span>
+    </div>
+
+<figure class="figure fig-inset">
+      <img src="images/twoinstrument-03.jpg" alt="The BOO module mid-build: a black panel with four knobs across the top annotated decay, damping, rotate and fluctuate, a fifth knob below, input jack at top and a violet output jack at lower left, orange banana cables on the bench.">
+      <figcaption>The panel during the build &mdash; Rotate, Fluctuate, Decay, Damping.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>It started with a place, Gano Street railroad tunnel in Providence,
+        Rhode Island. 5080 feet in length stretching from Gano Street to
+        Benefit Street running under the entirety of College Hill. It lost its
+        last rail service in 1976 and has been sealed since the 90s. Most
+        people who live above don&rsquo;t know of its existence. A piece of
+        infrastructure operating below awareness. Its function was stripped
+        away, what survived was its acoustics. A mile of void left with nothing
+        but to resonate low and heavy. In its silence, it has accumulated a
+        second life of rumor and folklore, a space remembered only as an
+        echo.</p>
+
+      <p>The conventional way to accurately capture a space is through
+        convolution. Record an impulse response and the tunnel becoming a
+        preset. The module in my mind was never about accuracy. It is a gesture
+        toward how lived space can be stored and represented. The
+        tunnel&rsquo;s perceptual qualities translated by ear and judgment into
+        computational behaviors. The module holds the tunnel&rsquo;s memory the
+        same way the city of Providence holds it. Not as data but as incomplete
+        memory.</p>
+
+      <h2>Technical system</h2>
+      <p>The core of the Serge format module is a four channel feedback delay
+        network built in Max gen~. My entry point into reverb design was the
+        classic Freeverb algorithm. Schroeder&rsquo;s architecture of parallel
+        lowpass-feedback combs feeding series allpasses. It taught me how
+        decay, damping and diffusion are constructed. It was also clear that
+        structurally it could not represent the tunnel. Because
+        Freeverb&rsquo;s combs never exchange energy, the reverb is the sum of
+        eight independent resonators ringing side by side. Its echo pattern is
+        fixed by comb tunings, density is constant, therefore its character is
+        recognizable, &ldquo;Freeverb sound&rdquo;. Same for every input, every
+        time.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/twoinstrument-05.jpg" loading="lazy" decoding="async" alt="Freeverb rebuilt in gen~: a bank of eight parallel freeverb_comb filters at fixed tunings sharing damp and feedback parameters, summed into a series of four freeverb_allpass delays.">
+      <figcaption>Freeverb rebuilt in <code>gen~</code>: eight parallel combs into four series allpasses.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>BOO module&rsquo;s architecture takes on a departure. Instead of each
+        delay feeding back into itself, all four outputs pass through a shared
+        mixing matrix that redistributes every line&rsquo;s energy into every
+        line&rsquo;s input on every pass. Reflections multiply combinatorially
+        with each circulation through the matrix compounds the number of each
+        distinct echo path, so in that sense density grows over time the way it
+        does in a real enclosure, rather than fixed arrival. The matrix is
+        energy preserving, normalized at 1/&radic;2. The network sustains very
+        long decays without the instability of raw cross-feedback. Diffusion
+        moves to the front where input passes through an allpass stage before
+        entering the loop, smearing transients so that discrete echoes dissolve
+        into texture during the recirculation phase and not as an output
+        polish. DC-blocking is added on every channel to keep the feedback path
+        stable.</p>
+
+      <p>Rotate drives a phasor through paired sine/cosine functions that
+        continuously turn the matrix weights, so that the routing between delay
+        lines is not a fixed wiring but a revolving one therefore energy
+        wanders through the network and reflections never fall into
+        repetition. Fluctuations govern the delay length themselves, which are
+        set by sampled noise, white noise through a sample and hold, scaled up
+        to 70ms. Within Freeverb, both of these variables are constant by
+        design, here they become expressive controls. Decay passes through a
+        t60 conversion, so the knob sets how long the space takes to fall
+        silent rather than a feedback coefficient and damping is a one-pole
+        lowpass placed inside the feedback loop. Reverb darkens as it decays,
+        similarly to how air absorbs high frequencies as sound travels.</p>
+
+      <p>The module has a second identity. A random oscillator sharing the same
+        enclosure. White noise sampled through a clocked sample and hold
+        (latch) is scaled to 20-2000Hz and drives a sine oscillator and a
+        <code>click~</code> that can excite the reverb network into ringing on
+        its own.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/twoinstrument-06.png" loading="lazy" decoding="async" alt="The BOO gen~ patch: four inputs through allpasses into four delay lines with varying lengths, a modulating delay matrix section rotating their weights, a t60 decay conversion, damping mix and history loops with DC blocking, and an energy-preserving mixing and routing stage to four outputs.">
+      <figcaption>BOO in <code>gen~</code> &mdash; four delay lines, the rotating matrix, T60 decay, damping inside the loop.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>The hardware is built on the Daisy Patch SM with a hand-wired
+        breakout, screw-terminal busses for power, ground, CV and audio I/O on
+        protoboard behind an aluminum panel carrying the four knobs and
+        I/O.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/twoinstrument-04.jpg" loading="lazy" decoding="async" alt="Left: the Daisy Patch SM pinout diagram with Eurorack signal, GPIO and power pins colour-coded. Right: the hand-wired protoboard build, screw-terminal busses labelled for plus five volts and ground, eight CV inputs, gates, switches and audio landed and annotated in red.">
+      <figcaption>The Patch SM pinned out, and the hand-wired busses.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Performance</h2>
+      <p>Returning to the Tunnel where it inspired the creation of this module.
+        A recorded performance was staged inside the Gano Street Tunnel itself
+        with sound pieces performed in combination with the Serge Modular
+        Synthesizer and live guitar. The space gave birth to a hardware and it
+        returned to its birthplace to pay homage. Electronic tunnel and the
+        physical tunnel reverberating each other.</p>
+    </div>
+  </div>
+
+<figure class="figure bleed">
+      <img src="images/twoinstrument-07.jpg" loading="lazy" decoding="async" alt="Two performers at night inside the railroad tunnel, at an abandoned wooden maintenance cart loaded with a laptop, controller and two speakers — one lit by a headlamp at the controls, one playing electric guitar — the rails receding to a distant point of light at the far portal.">
+      <figcaption>The recorded performance inside the tunnel &mdash; Serge pieces and live guitar.</figcaption>
+    </figure>
+
+  <div class="wrap">
+    <div class="band-label" style="border-top: var(--rule-heavy); padding-top: 0.65rem;">
+      <span>Part II</span>
+      <span>Living Wavetable, research into scanned synthesis, 2026&ndash;ongoing</span>
+    </div>
+
+    <div class="prose">
+      <p>BOO reverb module answers how a space can be held in an instrument.
+        This project extends that logic and asks the same but for a waveform.
+        It initially began as a dual wavetable oscillator, from scratch homage
+        to classic Eurorack modules, including two oscillators with morphing
+        tables, detune and a wavefolder. It became a research project when one
+        question took over coming directly out of Capsule&rsquo;s feedback
+        systems: what would it mean for an oscillator to be alive? Conventional
+        wavetable synthesis proposes the oscillator to scan stored,
+        pre-recorded waveforms and timbre only changes when tables are swapped
+        or morphed. This is when I came across scanned synthesis. A technique
+        introduced by Bill Verplank, Max Mathews and Rob Shaw. Here, the
+        wavetable is running a physical model, a 64-node circular string
+        governed by mass-spring-damper physics, struck, stirred, driven by
+        external voltages or audio, ringing and settling according to
+        Newton&rsquo;s laws of motion, all the while, an independent scanner
+        reads the string&rsquo;s shape out as audio. The physics evolve at
+        haptic rates, the speed of a hand plucking a string, while pitch
+        belongs to the scanner&rsquo;s scan speed. Timbre and pitch become
+        independent of one another. Manipulating the string&rsquo;s matter
+        freely while it sounds without pitch consequence. The waveform inhabits
+        real world physics.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ringTitle ringDesc">
+<title id="ringTitle">The circular string and its scanner</title>
+<desc id="ringDesc">A ring of 64 nodes displaced from rest by mass-spring-damper physics. A scanner travels around the ring and reads its shape out as an audio waveform, shown unrolled to the right.</desc>
+
+<!-- rest position -->
+<circle cx="215" cy="205" r="118" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 5"/>
+
+<!-- the string -->
+<path d="M 346.5,205.0 L 352.3,218.5 L 352.5,232.3 L 350.1,246.0 L 342.2,257.7 L 331.4,267.2 L 322.8,277.1 L 312.7,285.2 L 298.1,288.1 L 285.9,291.3 L 279.6,301.8 L 272.5,312.6 L 259.9,313.4 L 245.8,306.5 L 233.9,299.8 L 223.8,294.4 L 215.0,293.3 L 205.4,302.2 L 193.0,315.4 L 180.1,320.0 L 168.6,317.1 L 155.4,316.5 L 140.3,316.7 L 128.9,309.9 L 122.3,297.7 L 115.8,286.4 L 109.1,275.8 L 103.0,264.9 L 93.2,255.4 L 81.6,245.5 L 80.9,231.7 L 95.1,216.8 L 110.5,205.0 L 117.4,195.4 L 121.0,186.3 L 124.3,177.5 L 124.1,167.4 L 123.3,156.0 L 126.6,145.9 L 130.3,135.5 L 131.2,121.2 L 136.1,108.9 L 148.5,105.5 L 161.3,104.5 L 169.6,95.3 L 177.3,80.7 L 187.8,68.3 L 200.7,59.5 L 215.0,57.3 L 228.6,67.4 L 239.1,83.9 L 248.6,94.2 L 258.9,99.0 L 266.7,108.3 L 271.4,120.5 L 278.7,127.4 L 289.2,130.8 L 298.3,136.7 L 305.3,144.6 L 311.1,153.6 L 311.3,165.1 L 307.4,177.0 L 312.4,185.6 L 330.0,193.7 Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="346.5" cy="205.0" r="2.6" fill="var(--ink)"/><circle cx="352.3" cy="218.5" r="2.6" fill="var(--ink)"/><circle cx="352.5" cy="232.3" r="2.6" fill="var(--ink)"/><circle cx="350.1" cy="246.0" r="2.6" fill="var(--ink)"/><circle cx="342.2" cy="257.7" r="2.6" fill="var(--ink)"/><circle cx="331.4" cy="267.2" r="2.6" fill="var(--ink)"/><circle cx="322.8" cy="277.1" r="2.6" fill="var(--ink)"/><circle cx="312.7" cy="285.2" r="2.6" fill="var(--ink)"/><circle cx="298.1" cy="288.1" r="2.6" fill="var(--ink)"/><circle cx="285.9" cy="291.3" r="2.6" fill="var(--ink)"/><circle cx="279.6" cy="301.8" r="2.6" fill="var(--ink)"/><circle cx="272.5" cy="312.6" r="2.6" fill="var(--ink)"/><circle cx="259.9" cy="313.4" r="2.6" fill="var(--ink)"/><circle cx="245.8" cy="306.5" r="2.6" fill="var(--ink)"/><circle cx="233.9" cy="299.8" r="2.6" fill="var(--ink)"/><circle cx="223.8" cy="294.4" r="2.6" fill="var(--ink)"/><circle cx="215.0" cy="293.3" r="2.6" fill="var(--ink)"/><circle cx="205.4" cy="302.2" r="2.6" fill="var(--ink)"/><circle cx="193.0" cy="315.4" r="2.6" fill="var(--ink)"/><circle cx="180.1" cy="320.0" r="2.6" fill="var(--ink)"/><circle cx="168.6" cy="317.1" r="2.6" fill="var(--ink)"/><circle cx="155.4" cy="316.5" r="2.6" fill="var(--ink)"/><circle cx="140.3" cy="316.7" r="2.6" fill="var(--ink)"/><circle cx="128.9" cy="309.9" r="2.6" fill="var(--ink)"/><circle cx="122.3" cy="297.7" r="2.6" fill="var(--ink)"/><circle cx="115.8" cy="286.4" r="2.6" fill="var(--ink)"/><circle cx="109.1" cy="275.8" r="2.6" fill="var(--ink)"/><circle cx="103.0" cy="264.9" r="2.6" fill="var(--ink)"/><circle cx="93.2" cy="255.4" r="2.6" fill="var(--ink)"/><circle cx="81.6" cy="245.5" r="2.6" fill="var(--ink)"/><circle cx="80.9" cy="231.7" r="2.6" fill="var(--ink)"/><circle cx="95.1" cy="216.8" r="2.6" fill="var(--ink)"/><circle cx="110.5" cy="205.0" r="2.6" fill="var(--ink)"/><circle cx="117.4" cy="195.4" r="2.6" fill="var(--ink)"/><circle cx="121.0" cy="186.3" r="2.6" fill="var(--ink)"/><circle cx="124.3" cy="177.5" r="2.6" fill="var(--ink)"/><circle cx="124.1" cy="167.4" r="2.6" fill="var(--ink)"/><circle cx="123.3" cy="156.0" r="2.6" fill="var(--ink)"/><circle cx="126.6" cy="145.9" r="2.6" fill="var(--ink)"/><circle cx="130.3" cy="135.5" r="2.6" fill="var(--ink)"/><circle cx="131.2" cy="121.2" r="2.6" fill="var(--ink)"/><circle cx="136.1" cy="108.9" r="2.6" fill="var(--ink)"/><circle cx="148.5" cy="105.5" r="2.6" fill="var(--ink)"/><circle cx="161.3" cy="104.5" r="2.6" fill="var(--ink)"/><circle cx="169.6" cy="95.3" r="2.6" fill="var(--ink)"/><circle cx="177.3" cy="80.7" r="2.6" fill="var(--ink)"/><circle cx="187.8" cy="68.3" r="2.6" fill="var(--ink)"/><circle cx="200.7" cy="59.5" r="2.6" fill="var(--ink)"/><circle cx="215.0" cy="57.3" r="2.6" fill="var(--ink)"/><circle cx="228.6" cy="67.4" r="2.6" fill="var(--ink)"/><circle cx="239.1" cy="83.9" r="2.6" fill="var(--ink)"/><circle cx="248.6" cy="94.2" r="2.6" fill="var(--ink)"/><circle cx="258.9" cy="99.0" r="2.6" fill="var(--ink)"/><circle cx="266.7" cy="108.3" r="2.6" fill="var(--ink)"/><circle cx="271.4" cy="120.5" r="2.6" fill="var(--ink)"/><circle cx="278.7" cy="127.4" r="2.6" fill="var(--ink)"/><circle cx="289.2" cy="130.8" r="2.6" fill="var(--ink)"/><circle cx="298.3" cy="136.7" r="2.6" fill="var(--ink)"/><circle cx="305.3" cy="144.6" r="2.6" fill="var(--ink)"/><circle cx="311.1" cy="153.6" r="2.6" fill="var(--ink)"/><circle cx="311.3" cy="165.1" r="2.6" fill="var(--ink)"/><circle cx="307.4" cy="177.0" r="2.6" fill="var(--ink)"/><circle cx="312.4" cy="185.6" r="2.6" fill="var(--ink)"/><circle cx="330.0" cy="193.7" r="2.6" fill="var(--ink)"/>
+
+<!-- scanner -->
+<line x1="215" y1="205" x2="292.8" y2="132.5" stroke="var(--accent)" stroke-width="2"/>
+<circle cx="215" cy="205" r="4" fill="var(--accent)"/>
+<path d="M 270.0,113.0 A 108,108 0 0,1 315.0,167.0" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#ar)"/>
+
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+</marker>
+</defs>
+
+<!-- link across -->
+<line x1="352" y1="205" x2="418" y2="205" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar)" stroke-dasharray="6 4"/>
+
+<!-- unrolled waveform -->
+<line x1="430" y1="205" x2="690" y2="205" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 5"/>
+<path d="M 430.0,191.5 L 431.1,188.9 L 432.2,187.0 L 433.2,185.7 L 434.3,184.9 L 435.4,184.2 L 436.5,183.6 L 437.6,183.1 L 438.7,182.6 L 439.8,182.1 L 440.8,181.8 L 441.9,181.7 L 443.0,182.1 L 444.1,182.8 L 445.2,183.9 L 446.2,185.4 L 447.3,187.0 L 448.4,188.6 L 449.5,190.1 L 450.6,191.3 L 451.7,192.1 L 452.8,192.7 L 453.8,193.1 L 454.9,193.5 L 456.0,194.0 L 457.1,194.9 L 458.2,196.2 L 459.2,198.0 L 460.3,200.3 L 461.4,202.9 L 462.5,205.5 L 463.6,207.9 L 464.7,209.8 L 465.8,211.0 L 466.8,211.3 L 467.9,210.8 L 469.0,209.5 L 470.1,207.7 L 471.2,205.6 L 472.2,203.6 L 473.3,202.0 L 474.4,201.1 L 475.5,201.0 L 476.6,201.8 L 477.7,203.4 L 478.8,205.7 L 479.8,208.5 L 480.9,211.5 L 482.0,214.6 L 483.1,217.6 L 484.2,220.4 L 485.2,223.0 L 486.3,225.3 L 487.4,227.4 L 488.5,229.4 L 489.6,231.2 L 490.7,232.8 L 491.8,234.1 L 492.8,235.0 L 493.9,235.2 L 495.0,234.7 L 496.1,233.3 L 497.2,231.1 L 498.2,228.0 L 499.3,224.3 L 500.4,220.3 L 501.5,216.1 L 502.6,212.2 L 503.7,208.8 L 504.8,206.1 L 505.8,204.2 L 506.9,203.0 L 508.0,202.4 L 509.1,202.2 L 510.2,202.0 L 511.2,201.7 L 512.3,201.0 L 513.4,199.8 L 514.5,198.1 L 515.6,196.0 L 516.7,193.7 L 517.8,191.5 L 518.8,189.4 L 519.9,187.9 L 521.0,187.0 L 522.1,186.8 L 523.2,187.2 L 524.2,188.1 L 525.3,189.3 L 526.4,190.6 L 527.5,191.9 L 528.6,193.0 L 529.7,193.9 L 530.8,194.4 L 531.8,194.8 L 532.9,195.1 L 534.0,195.3 L 535.1,195.5 L 536.2,195.8 L 537.2,196.0 L 538.3,196.2 L 539.4,196.1 L 540.5,195.6 L 541.6,194.6 L 542.7,193.1 L 543.8,191.2 L 544.8,189.0 L 545.9,186.7 L 547.0,184.7 L 548.1,183.3 L 549.2,182.8 L 550.2,183.3 L 551.3,185.0 L 552.4,187.9 L 553.5,191.7 L 554.6,196.3 L 555.7,201.3 L 556.8,206.3 L 557.8,211.0 L 558.9,215.1 L 560.0,218.5 L 561.1,221.1 L 562.2,223.0 L 563.2,224.3 L 564.3,225.1 L 565.4,225.8 L 566.5,226.4 L 567.6,226.9 L 568.7,227.4 L 569.8,227.9 L 570.8,228.2 L 571.9,228.3 L 573.0,227.9 L 574.1,227.2 L 575.2,226.1 L 576.2,224.6 L 577.3,223.0 L 578.4,221.4 L 579.5,219.9 L 580.6,218.7 L 581.7,217.9 L 582.8,217.3 L 583.8,216.9 L 584.9,216.5 L 586.0,216.0 L 587.1,215.1 L 588.2,213.8 L 589.2,212.0 L 590.3,209.7 L 591.4,207.1 L 592.5,204.5 L 593.6,202.1 L 594.7,200.2 L 595.8,199.0 L 596.8,198.7 L 597.9,199.2 L 599.0,200.5 L 600.1,202.3 L 601.2,204.4 L 602.2,206.4 L 603.3,208.0 L 604.4,208.9 L 605.5,209.0 L 606.6,208.2 L 607.7,206.6 L 608.8,204.3 L 609.8,201.5 L 610.9,198.5 L 612.0,195.4 L 613.1,192.4 L 614.2,189.6 L 615.2,187.0 L 616.3,184.7 L 617.4,182.6 L 618.5,180.6 L 619.6,178.8 L 620.7,177.2 L 621.8,175.9 L 622.8,175.0 L 623.9,174.8 L 625.0,175.3 L 626.1,176.7 L 627.2,178.9 L 628.2,182.0 L 629.3,185.7 L 630.4,189.7 L 631.5,193.9 L 632.6,197.8 L 633.7,201.2 L 634.8,203.9 L 635.8,205.8 L 636.9,207.0 L 638.0,207.6 L 639.1,207.8 L 640.2,208.0 L 641.2,208.3 L 642.3,209.0 L 643.4,210.2 L 644.5,211.9 L 645.6,214.0 L 646.7,216.3 L 647.8,218.5 L 648.8,220.6 L 649.9,222.1 L 651.0,223.0 L 652.1,223.2 L 653.2,222.8 L 654.2,221.9 L 655.3,220.7 L 656.4,219.4 L 657.5,218.1 L 658.6,217.0 L 659.7,216.1 L 660.8,215.6 L 661.8,215.2 L 662.9,214.9 L 664.0,214.7 L 665.1,214.5 L 666.2,214.2 L 667.2,214.0 L 668.3,213.8 L 669.4,213.9 L 670.5,214.4 L 671.6,215.4 L 672.7,216.9 L 673.8,218.8 L 674.8,221.0 L 675.9,223.3 L 677.0,225.3 L 678.1,226.7 L 679.2,227.2 L 680.2,226.7 L 681.3,225.0 L 682.4,222.1 L 683.5,218.3 L 684.6,213.7 L 685.7,208.7 L 686.8,203.7 L 687.8,199.0 L 688.9,194.9 L 690.0,191.5" fill="none" stroke="var(--ink)" stroke-width="2"/>
+
+<!-- labels -->
+<text x="215" y="211" text-anchor="middle" font-family="var(--mono)" font-size="9" letter-spacing="1.4" fill="var(--muted)" dy="26">MASS-SPRING-DAMPER</text>
+<text x="20" y="26" font-family="var(--mono)" font-size="10" letter-spacing="1.6" fill="var(--accent)">64-NODE CIRCULAR STRING</text>
+<text x="20" y="404" font-family="var(--mono)" font-size="10" letter-spacing="1.4" fill="var(--muted)">PHYSICS EVOLVE AT HAPTIC RATE</text>
+<text x="430" y="26" font-family="var(--mono)" font-size="10" letter-spacing="1.6" fill="var(--accent)">SCANNER OUTPUT</text>
+<text x="430" y="404" font-family="var(--mono)" font-size="10" letter-spacing="1.4" fill="var(--muted)">SCAN SPEED = PITCH</text>
+</svg>
+      <figcaption>The 64-node circular string. Dashed line is rest; an independent scanner reads the ring out as audio.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Research and development</h2>
+      <p>The instrument was built line by line in Max gen~&rsquo;s codebox with
+        one variable change per iteration. I also built a visualization block
+        in Max by buffering pos data, where the string&rsquo;s position array
+        is exposed as a buffer and drawn live at 30 fps alongside a scope and
+        spectrogram. Watching the pluck ripple and fade turned every experiment
+        into an audiovisual measurement rather than guesswork. The interface
+        was decided by evidence. Pluck position was implemented and tested at
+        first and it does work visibly on the spectrogram, however it was too
+        subtle in its effect on sonic qualities to justify its implementation.
+        (The strike location selects which modes, the string&rsquo;s natural
+        patterns of vibration, each with its own frequency, ring, with nulls
+        where the strike lands on a point where a given mode doesn&rsquo;t
+        move.) Its seat instead went to pluck width. A narrow strike is a
+        spike, snapping across the full spectrum. A wide strike is a broad
+        bump, a low thump. Warp bends the scanner&rsquo;s read position by a
+        sine of itself, phase distortion applied to a living wavetable,
+        redistributing how long the scanner dwells on each region of the ring.
+        Wavefolder whose drive rides the string&rsquo;s decaying energy
+        completes the voice. Loud attacks fold hard, tails clean up on their
+        own.</p>
+    </div>
+
+<figure class="figure fig-measure">
+      <img src="images/twoinstrument-08.jpg" loading="lazy" decoding="async" alt="Split view in Max: left, the bench patch with the string visualization buffer, scopes, spectrum, CV and gate monitors and drum loops as excitation sources; right, the gen~ codebox source with 64-node Data arrays for position, velocity and damping, parameters for volt-per-octave, warp, pluck gate and six knobs, and an export log reading created binary 103 KB, daisy not ready on USB.">
+      <figcaption>The bench and the source. Three 64-node arrays; the instrument compiles to 103&nbsp;KB.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>Translating it to hardware follows a similar method to the BOO module
+        using Electrosmith Daisy as the central piece. Six potentiometers and
+        eleven 3.5mm mono jacks wired to the Daisy on protoboard. Verifying
+        each connection with a multimeter was crucial as any short could cause
+        irreversible damage to the Daisy.</p>
+    </div>
+
+<figure class="figure fig-inset">
+      <img src="images/twoinstrument-10.jpg" loading="lazy" decoding="async" alt="The Eurorack panel mid-build: potentiometers mounted through a drilled aluminium panel, red and teal wires with heatshrink rising from each lug, jacks along the top edge, the bench scattered with flux, steel wool and the Daisy board.">
+      <figcaption>Six pots, eleven jacks, wired through the drilled panel.</figcaption>
+    </figure>
+
+<figure class="figure fig-plate">
+      <img src="images/twoinstrument-09.jpg" loading="lazy" decoding="async" alt="A build note titled Power beside a photograph of the protoboard: white wire to minus twelve volts in, red wire to plus twelve volts in, black wires to ground pads and the ground bus on the lower board.">
+      <figcaption>The power map: white &minus;12&nbsp;V, red +12&nbsp;V, blacks to ground.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>Two later experiments completed the module&rsquo;s identity. One being
+        external audio excitation and second being the ability for the module
+        to report on itself, an energy follower. Audio from the input jack is
+        applied as physical force onto five nodes of the ring, added into the
+        same F&nbsp;=&nbsp;ma calculation as every other force, which
+        transforms the string into a driven resonator. The first public
+        implementation of scanned synthesis appeared in Csound, open source
+        synthesis language. Paris Smaragdis, then at the MIT Media Lab, coded
+        scanned synthesis technique into a pair of opcodes in March 2000 called
+        <a href="https://csound.com/docs/manual/scanu.html">scanu</a>, which
+        defines the mass-spring network, its masses, damping, centering
+        forces, and connection matrix and sets it in motion and scans which
+        follows a trajectory and reads the shape out as audio. Among
+        scanu&rsquo;s input is ain, &ldquo;audio input that adds to the
+        velocity of the masses&rdquo; (Smaragdis). Audio injection into the
+        model has been a part of the canonical implementation from the start.
+        Csound takes the incoming audio and implements it into the
+        mass&rsquo;s velocity.</p>
+
+      <p>Since kinetic energy is proportional to velocity squared, summing
+        v&sup2; across all 64 nodes every sample gives a single number of how
+        alive the string is at a given point in time. Smoothed by a one pole
+        filter so it decays like a real reading rather than flickering. That
+        number can leave the module as CV output. A second slow scanner reads
+        the same position array at 30Hz and outputs the string&rsquo;s shape,
+        meaning any oscilloscope will have the ability to draw out the
+        waveform. Two gates externalize the physics as timing, where a trigger
+        fires per strike and a gate holds high while energy exceeds a certain
+        threshold. Gate&rsquo;s duration is measured from the simulation, which
+        means the damping knob controls the gate&rsquo;s width, thus turning
+        damping down and the gate stretches and vice versa.</p>
+    </div>
+
+    <ul class="refs">
+      <li>Boulanger, Richard, Paris Smaragdis, and John ffitch. &ldquo;Scanned
+        Synthesis: An Introduction and Demonstration of a New Synthesis and
+        Signal Processing Technique.&rdquo; <em>Proceedings of the
+        International Computer Music Conference</em>, Berlin, 2000.</li>
+      <li>Schroeder, Manfred R. &ldquo;Natural Sounding Artificial
+        Reverberation.&rdquo; <em>Journal of the Audio Engineering Society</em>,
+        vol. 10, no. 3, 1962, pp. 219&ndash;223.</li>
+      <li>&ldquo;Scanned Synthesis.&rdquo; <em>The Canonical Csound Reference
+        Manual</em>,
+        <a href="https://csound.com/docs/manual/SiggenScanTop.html">csound.com/docs/manual/SiggenScanTop.html</a>.</li>
+      <li>Smaragdis, Paris. &ldquo;scanu.&rdquo; <em>The Canonical Csound
+        Reference Manual</em>,
+        <a href="https://csound.com/docs/manual/scanu.html">csound.com/docs/manual/scanu.html</a>.</li>
+      <li>Smith, Julius O. &ldquo;Freeverb.&rdquo; <em>Physical Audio Signal
+        Processing</em>,
+        <a href="https://ccrma.stanford.edu/~jos/pasp/Freeverb.html">ccrma.stanford.edu/~jos/pasp/Freeverb.html</a>.</li>
+      <li>Verplank, Bill, Max Mathews, and Robert Shaw. &ldquo;Scanned
+        Synthesis.&rdquo; <em>Proceedings of the International Computer Music
+        Conference</em>, Berlin, 2000.
+        <a href="https://ccrma.stanford.edu/~verplank/S2S/ScannedSynthesis.PDF">ccrma.stanford.edu/~verplank/S2S/ScannedSynthesis.PDF</a>.</li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    <nav class="pager" aria-label="Project navigation">
+      <a href="tap-room.html">&larr; Tap Room</a>
+      <a href="sound-works.html">Selected Sound Works &rarr;</a>
+    </nav>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Victor Chiu &mdash; victorchiu.com</span>
+    <div class="footer-links">
+      <a href="mailto:vchiu004@gmail.com">Email</a>
+      <a href="https://instagram.com/victor_ch1u" rel="noopener">Instagram</a>
+      <a href="https://ednz.bandcamp.com" rel="noopener">Bandcamp</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -61,7 +61,7 @@
     <p class="standfirst">
       Interdisciplinary artist working between material experimentation and
       electronic media. Painting, installation, sound.
-      <em>Turn the sound on and move down the list.</em>
+      <em>Sound is on &mdash; move down the list.</em>
     </p>
   </div>
 
@@ -248,8 +248,10 @@ const GRACE       = 220;   // ms of forgiveness crossing the gap between rows
   const railSegs  = Array.from(document.querySelectorAll('.rail-seg'));
   const rows      = Array.from(document.querySelectorAll('.index-row[data-sound]'));
 
+  /* Sound is ON by default. The stored value only remembers an explicit
+     mute from the rail — a visitor who never touches it always gets sound. */
   const store = {
-    get() { try { return localStorage.getItem('vc-sound') === 'on'; } catch (e) { return false; } },
+    get() { try { return localStorage.getItem('vc-sound') !== 'off'; } catch (e) { return true; } },
     set(v) { try { localStorage.setItem('vc-sound', v ? 'on' : 'off'); } catch (e) {} }
   };
 
